@@ -50,8 +50,8 @@ class UsersController {
       throw new AppError("Este e-mail já está em uso!");
     }
 
-    user.name = name;
-    user.email = email;
+    user.name = name ?? user.name;//O valor só será atualizado se o valor que estiver sendo passado não for vazio.
+    user.email = email ?? user.email;
 
     if ( password && !old_password ) {
 
@@ -78,9 +78,9 @@ class UsersController {
       name = ?,
       email = ?,
       password = ?,
-      updated_at = ?
+      updated_at = DATETIME('now')
       WHERE id = ?`,
-      [user.name, user.email, user.password, new Date(), id ]);
+      [user.name, user.email, user.password, id ]);
 
     return response.json();
   }
