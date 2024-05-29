@@ -1,3 +1,4 @@
+const { hash } = require("bcryptjs");//Método para criptografar senha de usuário.
 const AppError = require("../utils/AppError");
 const sqliteConnection = require("../database/sqlite");
 
@@ -24,9 +25,11 @@ class UsersController {
       
     }
 
-    await database.run("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [name, email, password]);
+    const hashedPassword = await hash(password, 8);
 
-    response.status(201).json({ name, email, password });//Devolve objeto em formato JSON.
+    await database.run("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [name, email, hashedPassword]);
+
+    response.status(201).json();//Devolve objeto em formato JSON.
   }
 
 }
