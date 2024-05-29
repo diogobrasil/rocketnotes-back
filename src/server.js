@@ -1,4 +1,5 @@
 require("express-async-errors");
+const database = require("./database/sqlite");
 
 const AppError = require("./utils/AppError");
 
@@ -7,6 +8,8 @@ const express = require("express");//Obtenção do Express na minha api.
 const routes = require("./routes");//Importando as rotas da api.
 
 const app = express();//Instanciação do Express.
+
+database();//Aqui o banco de dados será executado.
 
 app.use(express.json());//Para que minha api devolva a resposta de uma requisição POST em formato JSON.
 
