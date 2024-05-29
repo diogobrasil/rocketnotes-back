@@ -1,5 +1,5 @@
 require("express-async-errors");
-const database = require("./database/sqlite");
+const migrationsRun = require("./database/sqlite/migrations");
 
 const AppError = require("./utils/AppError");
 
@@ -9,7 +9,7 @@ const routes = require("./routes");//Importando as rotas da api.
 
 const app = express();//Instanciação do Express.
 
-database();//Aqui o banco de dados será executado.
+migrationsRun();//Aqui os comandos SQL no banco de dados serão executados.
 
 app.use(express.json());//Para que minha api devolva a resposta de uma requisição POST em formato JSON.
 
