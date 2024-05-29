@@ -1,3 +1,5 @@
+const AppError = require("../utils/AppError");
+
 class UsersController {
 
   /**Métodos de um controller:
@@ -12,9 +14,15 @@ class UsersController {
 
     const { name, email, password } = request.body;//Fraguementa o corpo de uma requisição e atribui os valores para os atributos name, email e password do objeto.
 
-    response.json({ name, email, password });//Devolve objeto em formato JSON.
+    if ( !name ) {
+
+      throw new AppError("Nome é obrigatório!");
+      
+    }
+
+    response.status(201).json({ name, email, password });//Devolve objeto em formato JSON.
   }
-  
+
 }
 
 module.exports = UsersController;
