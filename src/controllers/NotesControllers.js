@@ -74,7 +74,19 @@ class NotesController {
       const filterTags = tags.split(',').map( tag => tag.trim());
 
       notes = await knex("tags")
-        .whereIn("name", filterTags);//Busca pelo campo informado numa lista de valores.
+        .select(
+          [
+            "notes.id",
+            "notes.title",
+            "notes.user_id",
+            "name"
+          ]
+        )
+        .where("notes.user_id", user_id)
+        .whereLike("notes.title", `%${title}%`)
+        .whereIn("name", filterTags)//Busca pelo campo informado numa lista de valores.
+        .innerJoin("notes","notes.id","tags.note_id")
+        .orderBy("notes.title");
   
     }else {
 
