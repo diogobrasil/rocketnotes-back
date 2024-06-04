@@ -29,7 +29,7 @@ class UsersController {
 
     await database.run("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [name, email, hashedPassword]);
 
-    response.status(201).json();//Devolve objeto em formato JSON.
+    return response.status(201).json();//Devolve objeto em formato JSON.
   }
 
   async update( request, response ) {
