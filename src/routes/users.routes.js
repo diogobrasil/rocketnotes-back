@@ -5,9 +5,11 @@ const usersRouter = Router();//Inicialização do objeto Router.
 
 const UsersController = require("../controllers/UsersController");
 
+const ensureAuthenticated = require("../middlewares/ensureAuthenticated");
+
 const usersController = new UsersController();//Instaciação da classe UsersController.
 
 usersRouter.post("/", usersController.create);
-usersRouter.put("/:id", usersController.update);
+usersRouter.put("/", ensureAuthenticated, usersController.update);
 
 module.exports = usersRouter;//Exportação para que seja possível que outros modulos da api acessem as rotas de usuário.
