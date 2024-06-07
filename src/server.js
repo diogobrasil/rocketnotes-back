@@ -9,11 +9,15 @@ const routes = require("./routes");//Importando as rotas da api.
 
 const app = express();//Instanciação do Express.
 
+const uploadConfig = require("./config/upload");
+
 migrationsRun();//Aqui os comandos SQL no banco de dados serão executados.
 
 app.use(express.json());//Para que minha api devolva a resposta de uma requisição POST em formato JSON.
 
 app.use(routes);//Conexão do server com o routes.
+
+app.use("/files", express.static(uploadConfig.UPLOADS_FOLDER));//Rota para exibir arquivos.
 
 app.use(( error, request, response, next ) => {
 
