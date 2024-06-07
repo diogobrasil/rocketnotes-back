@@ -9,6 +9,10 @@ const routes = require("./routes");//Importando as rotas da api.
 
 const app = express();//Instanciação do Express.
 
+const cors = require("cors");
+
+app.use(cors());//Permite que a api atenda as requisições de frontend.
+
 const uploadConfig = require("./config/upload");
 
 migrationsRun();//Aqui os comandos SQL no banco de dados serão executados.
